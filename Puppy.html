@@ -1,0 +1,105 @@
+<!doctype html>
+<!-- The DOCTYPE declaration above will set the     -->
+<!-- browser's rendering engine into                -->
+<!-- "Standards Mode". Replacing this declaration   -->
+<!-- with a "Quirks Mode" doctype is not supported. -->
+
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+    <!--                                                               -->
+    <!-- Consider inlining CSS to reduce the number of requested files -->
+    <!--                                                               -->
+    <link type="text/css" rel="stylesheet" href="Puppy.css">
+
+    <!--                                           -->
+    <!-- Any title is fine                         -->
+    <!--                                           -->
+    <title>Web Application Starter Project</title>
+    
+    <!--                                           -->
+    <!-- This script loads your compiled module.   -->
+    <!-- If you add any GWT meta tags, they must   -->
+    <!-- be added before this line.                -->
+    <!--                                           -->
+    <script>
+      var syllable;
+      var answer;
+      var answered;
+
+      window.startMe = function() {
+        document.getElementById("s").style.backgroundColor="#FFFFFF";
+        probe = window.generateSyllableProbe().split(",");
+        syllable = probe[0];
+        answer = probe[1];
+        document.getElementById("s").innerText = syllable;
+        answered = false;
+      }
+
+      window.processAnswer = function(input) {
+        if (answered) {
+          return;
+        }
+
+        answered = true;
+
+        if (input === answer[0]) {
+          document.getElementById("s").style.backgroundColor="#90FF90";
+        } else {
+          document.getElementById("s").style.backgroundColor="#FF9090";
+        }
+
+        setTimeout(startMe, 100);
+      }
+
+      window.keyMe = function(e) {
+        uc = e.key.toUpperCase();
+        switch (uc) {
+          case 'L':
+          case 'M':
+          case 'H':
+          case 'R':
+          case 'F':
+            processAnswer(uc);
+          default:
+        }
+      }
+
+      document.addEventListener('keydown', keyMe);
+    </script>
+    <script type="text/javascript" language="javascript" src="puppy/puppy.nocache.js"></script>
+    <style>
+      h1 {text-align: center;}
+      p {text-align: center; margin: 20px 0;}
+      div {text-align: center;}
+    </style>
+  </head>
+
+
+  <!--                                           -->
+  <!-- The body can have arbitrary html, or      -->
+  <!-- you can leave the body empty if you want  -->
+  <!-- to create a completely dynamic UI.        -->
+  <!--                                           -->
+  <body>
+
+    <!-- RECOMMENDED if your web app will not function without JavaScript enabled -->
+    <noscript>
+      <div style="width: 22em; position: absolute; left: 50%; margin-left: -11em; color: red; background-color: white; border: 1px solid red; padding: 4px; font-family: sans-serif">
+        Your web browser must have JavaScript enabled
+        in order for this application to display correctly.
+      </div>
+    </noscript>
+    <center></center>
+    <p id="q" style="font-size:30px">Yo, tell me the tone!</p>
+    <p id="s" style="font-size:50px"></p>
+    <p id="buttons">
+      <button type="button" onclick="processAnswer('L')">Low (L)</button>
+      <button type="button" onclick="processAnswer('M')">Middle (M)</button>
+      <button type="button" onclick="processAnswer('H')">High (H)</button>
+      <button type="button" onclick="processAnswer('R')">Rising (R)</button>
+      <button type="button" onclick="processAnswer('F')">Falling (F)</button>
+    </p>
+  </body>
+</html>
